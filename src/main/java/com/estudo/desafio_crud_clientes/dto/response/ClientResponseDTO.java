@@ -1,5 +1,7 @@
 package com.estudo.desafio_crud_clientes.dto.response;
 
+import com.estudo.desafio_crud_clientes.model.Client;
+
 import java.time.LocalDate;
 
 public class ClientResponseDTO {
@@ -22,6 +24,15 @@ public class ClientResponseDTO {
         this.income = income;
         this.birthDate = birthDate;
         this.children = children;
+    }
+
+    public ClientResponseDTO(Client client) {
+        id = client.getId();
+        name = client.getName();
+        cpf = client.getCpf();
+        income = client.getIncome();
+        birthDate = client.getBirthDate();
+        children = client.getChildren();
     }
 
     public Long getId() {
