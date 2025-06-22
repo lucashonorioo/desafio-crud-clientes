@@ -2,9 +2,12 @@ package com.estudo.desafio_crud_clientes.service.impl;
 
 import com.estudo.desafio_crud_clientes.dto.request.ClientRequestDTO;
 import com.estudo.desafio_crud_clientes.dto.response.ClientResponseDTO;
+import com.estudo.desafio_crud_clientes.exception.exceptions.ResourceNotFoundExcecption;
+import com.estudo.desafio_crud_clientes.model.Client;
 import com.estudo.desafio_crud_clientes.repository.ClientRepository;
 import com.estudo.desafio_crud_clientes.service.ClientService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,8 +22,11 @@ public class ClientServiceImpl implements ClientService {
 
 
     @Override
+    @Transactional
     public ClientResponseDTO findByIdClient(Long id) {
-        return null;
+        Client client = clientRepository.findById(id).orElseThrow( () -> new ResourceNotFoundExcecption("Recurso não encontrado"));
+
+        return new ClientResponseDTO(client);
     }
 
     @Override
