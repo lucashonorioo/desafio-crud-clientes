@@ -6,10 +6,11 @@ import com.estudo.desafio_crud_clientes.exception.exceptions.ResourceNotFoundExc
 import com.estudo.desafio_crud_clientes.model.Client;
 import com.estudo.desafio_crud_clientes.repository.ClientRepository;
 import com.estudo.desafio_crud_clientes.service.ClientService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -30,8 +31,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<ClientResponseDTO> findAllClients() {
-        return List.of();
+    @Transactional
+    public Page<ClientResponseDTO> findAllClients(Pageable pageable) {
+        Page<Client> clientList = clientRepository.findAll(pageable);
+        return clientList.map( c -> new ClientResponseDTO(c));
     }
 
     @Override
